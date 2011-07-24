@@ -28,7 +28,7 @@ import twitter4j.auth.AccessToken;
 /**
  * TODO for yukung
  *
- * @version $Id$
+ * @version $Id: Executor.java 8 2011-07-24 12:19:39Z yukung $
  * @author yukung
  */
 public class Executor {

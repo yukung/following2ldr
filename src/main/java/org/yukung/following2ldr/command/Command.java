@@ -16,30 +16,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.yukung.following2ldr;
+package org.yukung.following2ldr.command;
 
 /**
- * バッチ処理を起動するクラスです.
+ * バッチ処理の単位となるコマンドを表します.
  *
  * @version $$LastChangedRevision$$ : $$LastChangedDate$$
  * @author yukung $$LastChangedBy$$
  */
-public class Executor {
+public interface Command {
 	
-	/**
-	 * エントリポイント.
-	 *
-	 * @param args 実行パラメータ
-	 */
-	public static void main(String[] args) {
-		// DIコンテナからコマンドライン引数のコンポーネントを取得
-		
-		// バッチプロセッサを取得
-		
-		// 実行パラメータを取得
-		
-		// プロセッサ実行
-		
-		// 完了メールなど
-	}
 }

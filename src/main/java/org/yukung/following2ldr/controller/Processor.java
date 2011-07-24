@@ -16,30 +16,24 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.yukung.following2ldr;
+package org.yukung.following2ldr.controller;
+
+import java.util.List;
+
+import org.yukung.following2ldr.command.Command;
 
 /**
- * バッチ処理を起動するクラスです.
+ * バッチ処理を制御するプロセッサです.
  *
  * @version $$LastChangedRevision$$ : $$LastChangedDate$$
  * @author yukung $$LastChangedBy$$
  */
-public class Executor {
+public class Processor {
 	
-	/**
-	 * エントリポイント.
-	 *
-	 * @param args 実行パラメータ
-	 */
-	public static void main(String[] args) {
-		// DIコンテナからコマンドライン引数のコンポーネントを取得
-		
-		// バッチプロセッサを取得
-		
-		// 実行パラメータを取得
-		
-		// プロセッサ実行
-		
-		// 完了メールなど
+	private List<? extends Command> commands;
+	
+
+	public void execute(List<String> parameters) {
+		// コマンド実行
 	}
 }

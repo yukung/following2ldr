@@ -23,7 +23,7 @@ import java.util.List;
 import org.yukung.following2ldr.command.Command;
 
 /**
- * バッチ処理を制御するプロセッサです.
+ * バッチ処理を制御するプロセッサです。
  *
  * @version $$LastChangedRevision$$ : $$LastChangedDate$$
  * @author yukung $$LastChangedBy$$
@@ -34,6 +34,21 @@ public class Processor {
 	
 
 	public void execute(List<String> parameters) {
-		// コマンド実行
+		try {
+			// コマンド実行
+			for (Command command : commands) {
+				command.setParameters(parameters);
+				command.init();
+				command.run();
+				command.destroy();
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return;
+		}
+	}
+	
+	public void setCommands(List<? extends Command> commands) {
+		this.commands = commands;
 	}
 }

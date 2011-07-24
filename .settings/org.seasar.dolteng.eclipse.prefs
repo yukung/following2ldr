@@ -1,0 +1,9 @@
+#Mon Jul 25 02:15:17 JST 2011
+DaoType=None
+DefaultResourcePath=/following2ldr/src/main/resources
+DefaultSrcPath=/following2ldr/src/main/java
+ServletPath=following2ldr
+UsePageMarker=false
+ViewType=None
+WebContentsRoot=src/main/webapp
+eclipse.preferences.version=1

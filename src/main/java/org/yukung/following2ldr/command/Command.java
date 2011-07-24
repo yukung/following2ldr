@@ -18,12 +18,41 @@
  */
 package org.yukung.following2ldr.command;
 
+import java.util.List;
+
 /**
- * バッチ処理の単位となるコマンドを表します.
+ * バッチ処理の単位となるコマンドを表します。
  *
  * @version $$LastChangedRevision$$ : $$LastChangedDate$$
  * @author yukung $$LastChangedBy$$
  */
 public interface Command {
 	
+	/**
+	 * コマンドの破棄を行います。
+	 */
+	void destroy();
+	
+	/**
+	 * コマンド名を取得します。
+	 * @return コマンド名
+	 */
+	String getCommandName();
+	
+	/**
+	 * コマンドの初期化を行います。
+	 */
+	void init();
+	
+	/**
+	 * コマンドを実行します。
+	 * @throws Throwable
+	 */
+	void run() throws Throwable;
+	
+	/**
+	 * コマンド固有のパラメータを設定します。
+	 * @param parameters
+	 */
+	void setParameters(List<String> parameters);
 }

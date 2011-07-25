@@ -56,13 +56,8 @@ public class Executor {
 	 * @return 指定されたバッチ処理プロセッサ
 	 */
 	private static Processor prepare(String path) {
-//		S2Container container = S2ContainerFactory.create(args[0]);
-//		container.init();
-//		Processor processor = (Processor) container.getComponent("processor");
 		SingletonS2ContainerFactory.setConfigPath(path);
 		SingletonS2ContainerFactory.init();
-//		S2Container container = SingletonS2ContainerFactory.getContainer();
-		// バッチプロセッサを取得
 		Processor processor = SingletonS2Container.getComponent("processor");
 		return processor;
 	}

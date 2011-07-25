@@ -21,7 +21,7 @@ package org.yukung.following2ldr;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.SingletonS2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.yukung.following2ldr.controller.Processor;
 
@@ -38,21 +38,32 @@ public class Executor {
 	 * @param args 実行パラメータ
 	 */
 	public static void main(String[] args) {
-		// DIコンテナからコマンドライン引数のコンポーネントを取得
-		SingletonS2ContainerFactory.setConfigPath(args[0]);
-		SingletonS2ContainerFactory.init();
-		S2Container container = SingletonS2ContainerFactory.getContainer();
-//		S2Container container = S2ContainerFactory.create(args[0]);
-//		container.init();
-		// バッチプロセッサを取得
-		Processor processor = (Processor) container.getComponent("processor");
+		Processor processor = prepare(args[0]); // コマンドライン引数の最初の要素はコマンド名
 		// 実行パラメータを取得
 		List<String> parameters = new ArrayList<String>();
 		for (int i = 1; i < args.length; i++) {
 			parameters.add(args[i]);
 		}
-		// プロセッサ実行
 		processor.execute(parameters);
-		// 完了メールなど
+		// 処理終了
+		SingletonS2ContainerFactory.destroy();
+	}
+	
+	/**
+	 * バッチ処理の準備を行います。
+	 *
+	 * @param path コマンドdiconファイルのパス
+	 * @return 指定されたバッチ処理プロセッサ
+	 */
+	private static Processor prepare(String path) {
+//		S2Container container = S2ContainerFactory.create(args[0]);
+//		container.init();
+//		Processor processor = (Processor) container.getComponent("processor");
+		SingletonS2ContainerFactory.setConfigPath(path);
+		SingletonS2ContainerFactory.init();
+//		S2Container container = SingletonS2ContainerFactory.getContainer();
+		// バッチプロセッサを取得
+		Processor processor = SingletonS2Container.getComponent("processor");
+		return processor;
 	}
 }

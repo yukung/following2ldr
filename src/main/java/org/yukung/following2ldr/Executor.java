@@ -39,22 +39,14 @@ public class Executor {
 	 */
 	public static void main(String[] args) {
 		Processor processor = prepare(args[0]); // コマンドライン引数の最初の要素はコマンド名
-		// 実行パラメータを取得
 		List<String> parameters = new ArrayList<String>();
 		for (int i = 1; i < args.length; i++) {
 			parameters.add(args[i]);
 		}
 		processor.execute(parameters);
-		// 処理終了
 		SingletonS2ContainerFactory.destroy();
 	}
 	
-	/**
-	 * バッチ処理の準備を行います。
-	 *
-	 * @param path コマンドdiconファイルのパス
-	 * @return 指定されたバッチ処理プロセッサ
-	 */
 	private static Processor prepare(String path) {
 		SingletonS2ContainerFactory.setConfigPath(path);
 		SingletonS2ContainerFactory.init();

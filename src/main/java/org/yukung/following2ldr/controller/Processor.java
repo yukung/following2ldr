@@ -30,12 +30,17 @@ import org.yukung.following2ldr.command.Command;
  */
 public class Processor {
 	
+	/** バッチ処理コマンドのList。 */
 	private List<? extends Command> commands;
 	
 
+	/**
+	 * 一連のバッチ処理を実行する。
+	 *
+	 * @param parameters 実行時パラメータ
+	 */
 	public void execute(List<String> parameters) {
 		try {
-			// コマンド実行
 			for (Command command : commands) {
 				command.setParameters(parameters);
 				command.init();

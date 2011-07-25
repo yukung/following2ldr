@@ -1,4 +1,6 @@
-#Mon Jul 25 12:31:59 JST 2011
+#Mon Jul 25 20:02:42 JST 2011
 eclipse.preferences.version=1
 encoding//src/main/resources/command/example.dicon=UTF-8
+encoding//src/main/resources/command/findFeedUrl.dicon=UTF-8
 encoding//src/test/resources/org/yukung/following2ldr/command/impl/ExampleCommandTest.dicon=UTF-8
+encoding//src/test/resources/org/yukung/following2ldr/command/impl/FindFeedUrlCommandTest.dicon=UTF-8

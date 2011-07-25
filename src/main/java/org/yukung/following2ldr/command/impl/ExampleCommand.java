@@ -23,8 +23,8 @@ import org.yukung.following2ldr.command.AbstractCommand;
 /**
  * コマンド実装の例です。
  *
- * @version $LastChangedRevision$ : $LastChangedDate$
- * @author yukung LastModified : $LastChangedBy$
+ * @version $$LastChangedRevision$$ : $$LastChangedDate$$
+ * @author yukung LastModified : $$LastChangedBy$$
  */
 public class ExampleCommand extends AbstractCommand {
 	

@@ -26,8 +26,8 @@ import org.apache.commons.logging.LogFactory;
 /**
  * コマンドの抽象クラスです。
  *
- * @version $LastChangedRevision$ : $LastChangedDate$
- * @author yukung LastModified : $LastChangedBy$
+ * @version $$LastChangedRevision$$ : $$LastChangedDate$$
+ * @author yukung LastModified : $$LastChangedBy$$
  */
 public abstract class AbstractCommand implements Command {
 	

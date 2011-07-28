@@ -20,9 +20,14 @@ package org.yukung.following2ldr.command.impl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.yukung.following2ldr.command.AbstractCommand;
 
+import twitter4j.IDs;
+import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
@@ -58,8 +63,46 @@ public class FindFeedUrlCommand extends AbstractCommand {
 		String pin = br.readLine();
 		AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, pin);
 		twitter.setOAuthAccessToken(accessToken);
-		User user = twitter.showUser("yukung");
-		System.out.println(user.getId());
+		long cursor = -1L;
+		IDs friendIDs;
+		List<Long> iDsList = new ArrayList<Long>(5000);
+		do {
+			friendIDs = twitter.getFriendsIDs("yukung", cursor);
+			long[] iDs = friendIDs.getIDs();
+			for (long iD : iDs) {
+				iDsList.add(iD);
+			}
+			cursor = friendIDs.getNextCursor();
+		} while (friendIDs.hasNext());
+		System.out.println(iDsList.size());
+		List<long[]> list = new ArrayList<long[]>();
+		int offset = 0;
+		long[] tmp = new long[100];
+		for (Long id : iDsList) {
+			if (offset < 100) {
+				tmp[offset] = id;
+				offset++;
+			} else {
+				list.add(tmp);
+				offset = 0;
+				tmp = new long[100];
+			}
+		}
+		list.add(tmp);
+		System.out.println(list.size());
+		List<URL> urlList = new ArrayList<URL>();
+		for (long[] array : list) {
+			ResponseList<User> lookupUsers = twitter.lookupUsers(array);
+			for (User user : lookupUsers) {
+				urlList.add(user.getURL());
+			}
+			System.out.println(urlList.size());
+		}
+		int index = 0;
+		for (URL url : urlList) {
+			System.out.println(index + ":" + url);
+			index++;
+		}
 		// 取得対象のユーザIDを外部ファイルorコマンドライン引数から取得
 		// Twitter APIからふぉろわーのIDを取得
 		// ふぉろわーのIDからURLを100件ずつ取得

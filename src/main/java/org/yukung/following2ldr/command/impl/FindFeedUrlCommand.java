@@ -19,7 +19,9 @@
 package org.yukung.following2ldr.command.impl;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class FindFeedUrlCommand extends AbstractCommand {
 		// Twitterへ認証
 		String consumerKey = "i7xTYiywTA65Y4dsAUmBJg";
 		String consumerSecret = "WbFY7Wx7mDFSOHwsClOb9wOj9txasXF8p6lwsommtg";
+		String userName = "yukung";
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 		RequestToken requestToken = twitter.getOAuthRequestToken();
@@ -67,14 +70,13 @@ public class FindFeedUrlCommand extends AbstractCommand {
 		IDs friendIDs;
 		List<Long> iDsList = new ArrayList<Long>(5000);
 		do {
-			friendIDs = twitter.getFriendsIDs("yukung", cursor);
+			friendIDs = twitter.getFriendsIDs(userName, cursor);
 			long[] iDs = friendIDs.getIDs();
 			for (long iD : iDs) {
 				iDsList.add(iD);
 			}
 			cursor = friendIDs.getNextCursor();
 		} while (friendIDs.hasNext());
-		System.out.println(iDsList.size());
 		List<long[]> list = new ArrayList<long[]>();
 		int offset = 0;
 		long[] tmp = new long[100];
@@ -89,25 +91,25 @@ public class FindFeedUrlCommand extends AbstractCommand {
 			}
 		}
 		list.add(tmp);
-		System.out.println(list.size());
 		List<URL> urlList = new ArrayList<URL>();
 		for (long[] array : list) {
 			ResponseList<User> lookupUsers = twitter.lookupUsers(array);
 			for (User user : lookupUsers) {
 				urlList.add(user.getURL());
 			}
-			System.out.println(urlList.size());
 		}
-		int index = 0;
+		String path = "C:\\Users\\ikeda_yusuke\\Documents\\sandbox\\java\\data\\" + userName + ".txt";
+		FileWriter writer = new FileWriter(path);
+		PrintWriter pw = new PrintWriter(writer);
 		for (URL url : urlList) {
-			System.out.println(index + ":" + url);
-			index++;
+			pw.println(url);
 		}
+		pw.close();
+		
 		// 取得対象のユーザIDを外部ファイルorコマンドライン引数から取得
 		// Twitter APIからふぉろわーのIDを取得
 		// ふぉろわーのIDからURLを100件ずつ取得
 		// ファイルに改行区切りでURLを保存
 		
 	}
-	
 }

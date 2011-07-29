@@ -19,9 +19,9 @@
 package org.yukung.following2ldr.command.impl;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 /**
- * TwitterでフォローしているユーザのURLを取得して，ファイルに出力します。
+ * Twitterでフォローしているユーザの登録されたURLを取得して，ファイルに出力します。
  *
  * @version $$LastChangedRevision$$ : $$LastChangedDate$$
  * @author yukung LastModified : $$LastChangedBy$$
@@ -51,8 +51,8 @@ public class FindFeedUrlCommand extends AbstractCommand {
 	
 	@Override
 	public void run() throws Throwable {
-		// TODO Auto-generated method stub
 		// Twitterへ認証
+		long start = System.currentTimeMillis();
 		String consumerKey = "i7xTYiywTA65Y4dsAUmBJg";
 		String consumerSecret = "WbFY7Wx7mDFSOHwsClOb9wOj9txasXF8p6lwsommtg";
 		String userName = "yukung";
@@ -100,11 +100,17 @@ public class FindFeedUrlCommand extends AbstractCommand {
 		}
 		String path = "C:\\Users\\ikeda_yusuke\\Documents\\sandbox\\java\\data\\" + userName + ".txt";
 		FileWriter writer = new FileWriter(path);
-		PrintWriter pw = new PrintWriter(writer);
+		BufferedWriter out = new BufferedWriter(writer);
+//		PrintWriter pw = new PrintWriter(writer);
 		for (URL url : urlList) {
-			pw.println(url);
+			if (url != null) {
+				out.write(url.toString() + "\n");
+			}
 		}
-		pw.close();
+		out.flush();
+		out.close();
+		long end = System.currentTimeMillis();
+		log.info("処理時間:" + (end - start) + " ms");
 		
 		// 取得対象のユーザIDを外部ファイルorコマンドライン引数から取得
 		// Twitter APIからふぉろわーのIDを取得

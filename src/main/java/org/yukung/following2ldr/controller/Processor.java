@@ -20,6 +20,8 @@ package org.yukung.following2ldr.controller;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.yukung.following2ldr.command.Command;
 
 /**
@@ -30,7 +32,9 @@ import org.yukung.following2ldr.command.Command;
  */
 public class Processor {
 	
-	/** バッチ処理コマンドのList。 */
+	private Log log = LogFactory.getLog(this.getClass());
+	
+	/** バッチ処理コマンドのList */
 	private List<? extends Command> commands;
 	
 
@@ -48,7 +52,7 @@ public class Processor {
 				command.destroy();
 			}
 		} catch (Throwable e) {
-			e.printStackTrace();
+			log.fatal("処理中にエラーが発生したため、処理を中断します。", e.fillInStackTrace());
 			return;
 		}
 	}

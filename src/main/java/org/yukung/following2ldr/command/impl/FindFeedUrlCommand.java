@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.yukung.following2ldr.Constants;
 import org.yukung.following2ldr.command.AbstractCommand;
 
 import twitter4j.IDs;
@@ -53,9 +54,9 @@ public class FindFeedUrlCommand extends AbstractCommand {
 	public void run() throws Throwable {
 		// Twitterへ認証
 		long start = System.currentTimeMillis();
-		String consumerKey = "i7xTYiywTA65Y4dsAUmBJg";
-		String consumerSecret = "WbFY7Wx7mDFSOHwsClOb9wOj9txasXF8p6lwsommtg";
-		String userName = "yukung";
+		String consumerKey = config.getProperty(Constants.CONSUMER_KEY);
+		String consumerSecret = config.getProperty(Constants.CONSUMER_SECRET);
+		String userName = params.get(0);
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 		RequestToken requestToken = twitter.getOAuthRequestToken();
@@ -95,6 +96,7 @@ public class FindFeedUrlCommand extends AbstractCommand {
 		for (long[] array : list) {
 			ResponseList<User> lookupUsers = twitter.lookupUsers(array);
 			for (User user : lookupUsers) {
+				log.info("URL:" + user.getURL());
 				urlList.add(user.getURL());
 			}
 		}

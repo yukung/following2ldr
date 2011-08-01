@@ -52,7 +52,7 @@ public class Processor {
 				command.destroy();
 			}
 		} catch (Throwable e) {
-			log.fatal("処理中にエラーが発生したため、処理を中断します。", e.fillInStackTrace());
+			log.fatal(e.getMessage(), e);
 			return;
 		}
 	}

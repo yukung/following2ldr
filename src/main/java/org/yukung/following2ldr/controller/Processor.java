@@ -52,7 +52,7 @@ public class Processor {
 				command.destroy();
 			}
 		} catch (Throwable e) {
-			log.fatal(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			return;
 		}
 	}
